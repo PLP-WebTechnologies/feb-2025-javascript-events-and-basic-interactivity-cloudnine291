@@ -1,52 +1,127 @@
-# 🎯 JavaScript Event Handling & Interactive Elements Assignment
+index.html
 
-Welcome to the **ultimate JavaScript playground**! 🎉 This assignment is where we turn boring web pages into dynamic, responsive, *alive* experiences. Get ready to master **event handling**, build **interactive components**, and validate forms like a pro! 💪
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JS Event Playground</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Interactive Page</h1>
+  </header>
 
-## 📁 Assignment Structure
+  <section>
+    <button id="changeBtn">Click Me</button>
+    <p id="textChange">This text will change</p>
+  </section>
 
-```
-📂 js-event-assignment/
-├── index.html         # Your playground – where it all comes together
-├── style.css          # Keep it cute (optional but encouraged)
-└── script.js          # The JavaScript wizardry happens here
-```
+  <section id="gallery">
+    <img src="https://via.placeholder.com/200" alt="Image 1" id="galleryImg" />
+    <button id="nextImg">Next Image</button>
+  </section>
 
----
+  <section>
+    <form id="userForm">
+      <input type="text" id="name" placeholder="Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Submit</button>
+      <p id="formMsg"></p>
+    </form>
+  </section>
 
-## 🧪 What to Build
+  <script src="script.js"></script>
+</body>
+</html>
 
-Here’s what your interactive bundle of joy should include:
+styles.css
+body {
+  font-family: sans-serif;
+  padding: 20px;
+}
 
-### 1. Event Handling 🎈  
-- Button click ✅  
-- Hover effects ✅  
-- Keypress detection ✅  
-- Bonus: A secret action for a *double-click* or *long press* 🤫
+button {
+  margin: 10px 0;
+  padding: 8px 16px;
+  cursor: pointer;
+}
 
-### 2. Interactive Elements 🎮  
-- A button that changes text or color  
-- An image gallery or slideshow  
-- Tabs or accordion-style content  
-- Bonus: Add some animation using JS or CSS ✨
+img {
+  width: 200px;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
 
-### 3. Form Validation 📋✅  
-- Required field checks  
-- Email format validation  
-- Password rules (e.g., min 8 characters)  
-- Bonus: Real-time feedback while typing
 
----
+script.js
+// Button click to change text
+document.getElementById("changeBtn").addEventListener("click", () => {
+  const text = document.getElementById("textChange");
+  text.textContent = "You clicked the button!";
+  text.style.color = "blue";
+});
 
-## 🧙‍♂️ Pro Tips
+// Hover effect
+const changeBtn = document.getElementById("changeBtn");
+changeBtn.addEventListener("mouseover", () => {
+  changeBtn.style.backgroundColor = "lightgreen";
+});
+changeBtn.addEventListener("mouseout", () => {
+  changeBtn.style.backgroundColor = "";
+});
 
-- Keep your code clean and commented – your future self will thank you!
-- Think about **user experience** – what makes your site more *fun* to use?
-- Don’t be afraid to **Google and experiment** – that’s how real developers roll!
+// Keypress detection
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    alert("Enter key pressed");
+  }
+});
 
----
+// Double-click secret action
+changeBtn.addEventListener("dblclick", () => {
+  alert("🎉 Secret double-click unlocked!");
+});
 
-## 🎉 Now Go Make It Fun!
+// Image gallery
+const galleryImages = [
+  "https://via.placeholder.com/200?text=Image+1",
+  "https://via.placeholder.com/200?text=Image+2",
+  "https://via.placeholder.com/200?text=Image+3",
+];
+let currentImg = 0;
 
-Remember – this isn't just code. It's your **first step toward creating magical user experiences**. So play around, break stuff (then fix it), and most of all, have FUN! 😄
+document.getElementById("nextImg").addEventListener("click", () => {
+  currentImg = (currentImg + 1) % galleryImages.length;
+  document.getElementById("galleryImg").src = galleryImages[currentImg];
+});
 
-Happy Coding! 💻✨  
+// Form validation
+document.getElementById("userForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const msg = document.getElementById("formMsg");
+
+  if (!email.includes("@")) {
+    msg.textContent = "Please enter a valid email.";
+    msg.style.color = "red";
+    return;
+  }
+
+  if (password.length < 8) {
+    msg.textContent = "Password must be at least 8 characters.";
+    msg.style.color = "red";
+    return;
+  }
+
+  msg.textContent = "Form submitted successfully!";
+  msg.style.color = "green";
+});
+
+
+
